@@ -3,22 +3,369 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Job Application Tracker</title>
-    <!-- font -->
+
+    <!-- Google Font: Geist -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"
       rel="stylesheet"
     />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Tailwind -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
     <style>
-      *{
-            font-family: "Geist", sans-serif;
+      * {
+        font-family: "Geist", sans-serif;
       }
     </style>
+
+    <title>Job Application Tracker</title>
   </head>
-  <body>
-    <H1>Hello</H1>
+
+  <body class="bg-gray-100 min-h-screen">
+    <div class="max-w-5xl mx-auto px-6 py-10">
+      <!-- Title -->
+      <h1 class="text-2xl font-semibold text-blue-900 mb-8">
+        Job Application Tracker
+      </h1>
+
+      <!-- Dashboard -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+        <div class="bg-white rounded-lg p-5">
+          <p class="text-sm text-gray-500 mb-2">Total</p>
+          <p id="total-count" class="text-xl font-semibold">0</p>
+        </div>
+
+        <div class="bg-white rounded-lg p-5">
+          <p class="text-sm text-gray-500 mb-2">Interview</p>
+          <p
+            id="interview-count"
+            class="text-xl font-semibold text-emerald-500"
+          >
+            0
+          </p>
+        </div>
+
+        <div class="bg-white rounded-lg p-5">
+          <p class="text-sm text-gray-500 mb-2">Rejected</p>
+          <p id="rejected-count" class="text-xl font-semibold text-red-500">
+            0
+          </p>
+        </div>
+      </div>
+
+      <!-- Header -->
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-lg font-semibold text-blue-900">Available Jobs</h2>
+        <span id="jobs-count" class="text-sm text-gray-500">0 jobs</span>
+      </div>
+
+      <!-- Tabs -->
+      <div class="flex gap-3 mb-6">
+        <button
+          id="tab-all"
+          class="tab-btn focus:bg-blue-500 focus:text-white px-4 py-1.5 text-sm rounded bg-blue-500 text-white"
+        >
+          All
+        </button>
+
+        <button
+          id="tab-interview"
+          class="tab-btn px-4 py-1.5 text-sm rounded bg-white text-gray-600"
+        >
+          Interview
+        </button>
+
+        <button
+          id="tab-rejected"
+          class="tab-btn px-4 py-1.5 text-sm rounded bg-white text-gray-600"
+        >
+          Rejected
+        </button>
+      </div>
+
+      <!-- Jobs -->
+      <div id="all-jobs" class="space-y-6">
+        <!-- Example Job -->
+        <div class="job-card bg-white rounded-lg p-6 relative" data-id="1">
+          <button
+            class="btn-delete absolute top-4 right-4 text-gray-400 hover:text-red-500"
+          >
+            <i class="fa-solid fa-trash"></i>
+          </button>
+
+          <h3 class="font-semibold">Skyline Digital</h3>
+          <p class="text-sm text-gray-600 mt-1">UI Engineer</p>
+          <p class="text-xs text-gray-500 mt-1">
+            Austria • Remote • Full-time • $90,000 – $115,00
+          </p>
+
+          <p class="text-sm text-gray-600 mt-4">
+            Translate product designs into responsive interfaces. Implement
+            design systems and improve frontend performance across devices.
+          </p>
+
+          <div class="flex gap-3 mt-4">
+            <button
+              class="btn-interview px-4 py-1.5 text-xs rounded border border-emerald-500 text-emerald-600 hover:bg-emerald-50"
+            >
+              Interview
+            </button>
+            <button
+              class="btn-rejected px-4 py-1.5 text-xs rounded border border-red-500 text-red-600 hover:bg-red-50"
+            >
+              Rejected
+            </button>
+          </div>
+        </div>
+        <div class="job-card bg-white rounded-lg p-6 relative" data-id="2">
+          <button
+            class="btn-delete absolute top-4 right-4 text-gray-400 hover:text-red-500"
+          >
+            <i class="fa-solid fa-trash"></i>
+          </button>
+
+          <h3 class="font-semibold">NovaTech Innovations</h3>
+          <p class="text-sm text-gray-600 mt-1">Software Engineer</p>
+          <p class="text-xs text-gray-500 mt-1">
+            Austrin, USA • Remote • Full-time • $105,000 – $135,000
+          </p>
+
+          <p class="text-sm text-gray-600 mt-4">
+            Develop scalable web applications using modern JavaScript
+            frameworks. Optimize backend services and maintain clean,
+            maintainable code architecture.
+          </p>
+
+          <div class="flex gap-3 mt-4">
+            <button
+              class="btn-interview px-4 py-1.5 text-xs rounded border border-emerald-500 text-emerald-600 hover:bg-emerald-50"
+            >
+              Interview
+            </button>
+            <button
+              class="btn-rejected px-4 py-1.5 text-xs rounded border border-red-500 text-red-600 hover:bg-red-50"
+            >
+              Rejected
+            </button>
+          </div>
+        </div>
+        <div class="job-card bg-white rounded-lg p-6 relative" data-id="3">
+          <button
+            class="btn-delete absolute top-4 right-4 text-gray-400 hover:text-red-500"
+          >
+            <i class="fa-solid fa-trash"></i>
+          </button>
+
+          <h3 class="font-semibold">Quantum Analytics</h3>
+          <p class="text-sm text-gray-600 mt-1">Data Engineer</p>
+          <p class="text-xs text-gray-500 mt-1">
+            New York, USA • Remote • Full-time • $120,000 – $155,000
+          </p>
+
+          <p class="text-sm text-gray-600 mt-4">
+            Build data pipelines and ETL workflows. Manage large-scale data
+            processing systems using cloud infrastructure.
+          </p>
+
+          <div class="flex gap-3 mt-4">
+            <button
+              class="btn-interview px-4 py-1.5 text-xs rounded border border-emerald-500 text-emerald-600 hover:bg-emerald-50"
+            >
+              Interview
+            </button>
+            <button
+              class="btn-rejected px-4 py-1.5 text-xs rounded border border-red-500 text-red-600 hover:bg-red-50"
+            >
+              Rejected
+            </button>
+          </div>
+        </div>
+        <div class="job-card bg-white rounded-lg p-6 relative" data-id="4">
+          <button
+            class="btn-delete absolute top-4 right-4 text-gray-400 hover:text-red-500"
+          >
+            <i class="fa-solid fa-trash"></i>
+          </button>
+
+          <h3 class="font-semibold">GreenByte Technologies</h3>
+          <p class="text-sm text-gray-600 mt-1">Backend Engineer</p>
+          <p class="text-xs text-gray-500 mt-1">
+            Amsterdam, Netherlands • Remote • Full-time • $110,000
+          </p>
+
+          <p class="text-sm text-gray-600 mt-4">
+            Design RESTful APIs and microservices. Ensure application security
+            and database optimization for high-traffic systems.
+          </p>
+
+          <div class="flex gap-3 mt-4">
+            <button
+              class="btn-interview px-4 py-1.5 text-xs rounded border border-emerald-500 text-emerald-600 hover:bg-emerald-50"
+            >
+              Interview
+            </button>
+            <button
+              class="btn-rejected px-4 py-1.5 text-xs rounded border border-red-500 text-red-600 hover:bg-red-50"
+            >
+              Rejected
+            </button>
+          </div>
+        </div>
+        <div class="job-card bg-white rounded-lg p-6 relative" data-id="5">
+          <button
+            class="btn-delete absolute top-4 right-4 text-gray-400 hover:text-red-500"
+          >
+            <i class="fa-solid fa-trash"></i>
+          </button>
+
+          <h3 class="font-semibold">PulseChain Labs</h3>
+          <p class="text-sm text-gray-600 mt-1">Blockchain Developer</p>
+          <p class="text-xs text-gray-500 mt-1">
+            Navis, Germany • Remote • Full-time • $130,000
+          </p>
+
+          <p class="text-sm text-gray-600 mt-4">
+            Develop smart contracts and decentralized applications. Maintain
+            blockchain network integrations and security compliance.
+          </p>
+
+          <div class="flex gap-3 mt-4">
+            <button
+              class="btn-interview px-4 py-1.5 text-xs rounded border border-emerald-500 text-emerald-600 hover:bg-emerald-50"
+            >
+              Interview
+            </button>
+            <button
+              class="btn-rejected px-4 py-1.5 text-xs rounded border border-red-500 text-red-600 hover:bg-red-50"
+            >
+              Rejected
+            </button>
+          </div>
+        </div>
+        <div class="job-card bg-white rounded-lg p-6 relative" data-id="6">
+          <button
+            class="btn-delete absolute top-4 right-4 text-gray-400 hover:text-red-500"
+          >
+            <i class="fa-solid fa-trash"></i>
+          </button>
+
+          <h3 class="font-semibold">BrightPath Solutions</h3>
+          <p class="text-sm text-gray-600 mt-1">QA Automation Engineer</p>
+          <p class="text-xs text-gray-500 mt-1">
+            Dublin, Ireland • Remote • Full-time • $85,000 – $100,000
+          </p>
+
+          <p class="text-sm text-gray-600 mt-4">
+            Create automated testing frameworks and ensure software quality
+            through continuous integration pipelines.
+          </p>
+
+          <div class="flex gap-3 mt-4">
+            <button
+              class="btn-interview px-4 py-1.5 text-xs rounded border border-emerald-500 text-emerald-600 hover:bg-emerald-50"
+            >
+              Interview
+            </button>
+            <button
+              class="btn-rejected px-4 py-1.5 text-xs rounded border border-red-500 text-red-600 hover:bg-red-50"
+            >
+              Rejected
+            </button>
+          </div>
+        </div>
+        <div class="job-card bg-white rounded-lg p-6 relative" data-id="7">
+          <button
+            class="btn-delete absolute top-4 right-4 text-gray-400 hover:text-red-500"
+          >
+            <i class="fa-solid fa-trash"></i>
+          </button>
+
+          <h3 class="font-semibold">Orbit Systems</h3>
+          <p class="text-sm text-gray-600 mt-1">Cloud Engineer</p>
+          <p class="text-xs text-gray-500 mt-1">
+            Sydney, Australia • Remote • Full-time • $115,000 – $140,000
+          </p>
+
+          <p class="text-sm text-gray-600 mt-4">
+            Deploy and manage cloud-based infrastructure. Implement
+            containerization and orchestration using Kubernetes.
+          </p>
+
+          <div class="flex gap-3 mt-4">
+            <button
+              class="btn-interview px-4 py-1.5 text-xs rounded border border-emerald-500 text-emerald-600 hover:bg-emerald-50"
+            >
+              Interview
+            </button>
+            <button
+              class="btn-rejected px-4 py-1.5 text-xs rounded border border-red-500 text-red-600 hover:bg-red-50"
+            >
+              Rejected
+            </button>
+          </div>
+        </div>
+        <div class="job-card bg-white rounded-lg p-6 relative" data-id="8">
+          <button
+            class="btn-delete absolute top-4 right-4 text-gray-400 hover:text-red-500"
+          >
+            <i class="fa-solid fa-trash"></i>
+          </button>
+
+          <h3 class="font-semibold">VisionWare Studio</h3>
+          <p class="text-sm text-gray-600 mt-1">Product Designer</p>
+          <p class="text-xs text-gray-500 mt-1">
+            Vancouver, Canada • Remote • Full-time • $95,000
+          </p>
+
+          <p class="text-sm text-gray-600 mt-4">
+            Design intuitive digital products. Conduct usability testing and
+            collaborate with engineering teams to deliver user-centered
+            solutions.
+          </p>
+
+          <div class="flex gap-3 mt-4">
+            <button
+              class="btn-interview px-4 py-1.5 text-xs rounded border border-emerald-500 text-emerald-600 hover:bg-emerald-50"
+            >
+              Interview
+            </button>
+            <button
+              class="btn-rejected px-4 py-1.5 text-xs rounded border border-red-500 text-red-600 hover:bg-red-50"
+            >
+              Rejected
+            </button>
+          </div>
+        </div>
+
+        <!-- Duplicate this structure for 8 total meaningful jobs -->
+      </div>
+
+      <!-- Empty State -->
+      <div
+        id="empty-state"
+        class="hidden flex flex-col items-center justify-center text-center py-16"
+      >
+        <img src="jobs.png" alt="No Jobs" class="w-24 mb-6 opacity-90" />
+
+        <h3 class="text-lg font-semibold">No jobs Available</h3>
+        <p class="text-sm text-gray-500 mt-2">
+          There are no jobs in this category.
+        </p>
+      </div>
+    </div>
+
+    <script src="logic.js"></script>
   </body>
-  <script src="./logic.js"></script>
 </html>
